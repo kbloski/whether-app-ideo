@@ -17,6 +17,7 @@ const router = createRouter({
       },
       component: () => import('../features/dashboard/DashboardPage.vue'),
     },
+    { path: '/:notFound(.*)', redirect: '/' },
   ],
 })
 

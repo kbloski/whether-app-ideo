@@ -1,5 +1,7 @@
 <template>
-    <li class="row mb-1 py-1 px-1">
+    <div v-if="isLoading">Loading...</div>
+    <Error v-else-if="isError">Oh no, error, please contact support...</Error>
+    <li class="row mb-1 py-1 px-1" v-else>
         <span class="col-2 col-md-4 d-flex align-items-center">{{ city.name }}</span>
         <span class="col-2 col-md-3 d-flex align-items-center"
             >💧 {{ data?.main?.humidity }}%</span
@@ -26,7 +28,7 @@ const props = defineProps<{
     city: TypeCity;
 }>();
 
-const { data } = useWeatherApiByCityId(props.city.id);
+const { data, isLoading, isError} = useWeatherApiByCityId(props.city.id);
 
 function handleDelete( cityId : number){
     savedCitiesStore.removeSavedCityById( cityId )

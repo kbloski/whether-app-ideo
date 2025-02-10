@@ -11,7 +11,7 @@
                 <span class="col-4 col-md-1"> </span>
             </li>
         </strong>
-        <div v-if="!savedCitiesStore.savedCities.length">Twoja lista nie posiada żadnych zapisanych miast.</div>
+        <div v-if="!savedCitiesStore.savedCities.length">Your list doesn't have any localizations yet.</div>
         <SavedCitiesListItem :city="city" :key="city.id" v-for="city in savedCitiesStore.savedCities" />
     </ul>
 </div>

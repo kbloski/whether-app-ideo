@@ -1,7 +1,11 @@
 <template>
-    <div class="text-light">{{ data?.city.name }}</div>
-    <div class="bg-light">
-        <canvas id="myChart" width="400" height="400"></canvas>
+    <div v-if="isLoading">Loading...</div>
+    <Error v-if="isError">Oh no, error, please contact support...</Error>
+    <div v-else>
+        <div class="text-light">{{ data?.city.name }}</div>
+        <div class="bg-light">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
     </div>
 </template>
 
@@ -11,7 +15,7 @@ import { useHourlyWeatherApiByCityId } from "@/services/useWeatherApi";
 import { createChart } from "@/utils/createChart";
 
 const props = defineProps<{ cityId: number }>();
-const { data } = useHourlyWeatherApiByCityId(props.cityId);
+const { data, isLoading, isError } = useHourlyWeatherApiByCityId(props.cityId);
 
 watch(data, () => {
     if (!data) return;
@@ -22,7 +26,7 @@ watch(data, () => {
 
     data.value?.list.forEach((el, index) => {
         if (index > 8) return;
-        
+
         labels.push(el.dt_txt);
         temperatures.push(el.main.temp);
         humadity.push(el.main.humidity);
