@@ -14,11 +14,8 @@ function getUsersFromLocalStorage(): TypeUserData[] {
 }
 
 export const useAuthStore = defineStore("auth", () => {
-    // const user = ref<Omit<TypeUserData, 'password'> | null>(null)
-    const user = ref<Omit<TypeUserData, 'password'> | null>({
-      login: 'kblonski02@gmail.com',
-      id: '1'
-    })
+    const user = ref<Omit<TypeUserData, 'password'> | null>(null)
+
 
     function registerUser({ login, password }: { login: string, password: string}) {
         const users = getUsersFromLocalStorage();
@@ -29,10 +26,11 @@ export const useAuthStore = defineStore("auth", () => {
         );
         if (userExist) throw new Error("User arleady exist in database.");
 
-        const id = new Date().toDateString();
+        const id = new Date().toISOString();
         users.push({ id, login, password });
         localStorage.setItem("users", JSON.stringify(users));
     }
+
 
     function loginUser({ login, password }: { login: string; password: string }) {
         const users = getUsersFromLocalStorage();
@@ -49,5 +47,9 @@ export const useAuthStore = defineStore("auth", () => {
         return userWithoutPassword;
     }
 
-    return { registerUser, loginUser, user };
+    function logOut(){
+      user.value = null;
+    }
+
+    return { registerUser, loginUser, logOut, user };
 });

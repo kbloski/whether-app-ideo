@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Cities</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #87CEEB;
+        }
+        .left-panel {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .right-panel {
+            background-color: #1A1A4B;
+            border-radius: 10px;
+            color: white;
+            padding: 20px;
+        }
+        .humidity-icon, .temperature-icon {
+            margin-right: 5px;
+        }
+        .info-button {
+            background-color: #007bff;
+            color: white;
+        }
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="left-panel">
+                    <div class="d-flex justify-content-between mb-3">
+                        <input type="text" class="form-control me-2" placeholder="Search place">
+                        <select class="form-select">
+                            <option>All places</option>
+                        </select>
+                    </div>
+                    <h1>Favorite<span class="fw-bold">Cities</span></h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>City name</th>
+                                <th>Humidity</th>
+                                <th>Temperature</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ḩeşār-e Sefīd</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>80%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>0.02°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>`Ayn Ḩalāqīm</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>88%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>3.16°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Taglag</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>75%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>-4.05°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>`Āriqah</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>87%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>6.38°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tālesh Maḩalleh</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>80%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>4.84°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Shahrīār Kandeh</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>80%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>4.09°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bālā Aḩmad Kolā</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>72%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>6.07°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Behjatābād</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>91%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>4.94°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Kuaydinah</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>74%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>23.7°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Kūchaklī</td>
+                                <td><i class="fas fa-tint humidity-icon"></i>79%</td>
+                                <td><i class="fas fa-thermometer-down temperature-icon"></i>-9.88°C</td>
+                                <td>
+                                    <button class="btn btn-sm info-button"><i class="fas fa-info"></i></button>
+                                    <button class="btn btn-sm delete-button"><i class="fas fa-times"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="right-panel">
+                    <div class="mb-3">NotificationsPlacesLog out</div>
+                    <div>
+                        <i class="fas fa-cloud-sun"></i> Today<br>
+                        Sob. 3 Aug<br>
+                        28 * C<br>
+                        Berlin, Germany<br>
+                        Geels like 32 * Sunset 20:15<br>
+                        Chance of rain
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

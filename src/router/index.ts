@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore'
+import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,21 +12,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'dashboard',
-      meta: { 
-        needsAuth: true 
+      meta: {
+        needsAuth: true,
       },
-      component: () => import('../features/dashboard/Dashboard.vue'),
+      component: () => import('../features/dashboard/DashboardPage.vue'),
     },
   ],
 })
 
-router.beforeEach( (to, from, next) => {  
+router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
   if (to.name === 'auth' && authStore.user) return next('/')
-  if (to.meta?.needsAuth && !authStore.user) return next('/auth');
+  if (to.meta?.needsAuth && !authStore.user) return next('/auth')
 
-  console.log( to.meta , 'meta data from router.beforeEach' )
   next()
 })
 

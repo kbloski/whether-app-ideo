@@ -14,7 +14,11 @@
 
 <script lang="ts" setup>
 import { reactive, defineEmits } from 'vue';
-import type { TypeAuthFormValues } from './TypeAuthFormValues';
+
+export type TypeAuthFormValues = {
+  login: string
+  password: string
+}
 
 
 const emits = defineEmits<{

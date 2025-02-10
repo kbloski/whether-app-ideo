@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { useQueryProvider } from 'vue-query';
+import { RouterView } from 'vue-router'
 
-
+useQueryProvider()
 </script>
 
 <template>
@@ -10,11 +11,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style lang="scss">
 :root {
-  --background-dark: #110E3D;
+  --background-dark: #1A1A4B;
 }
 
 body {
-  background: #7DB1ED;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #87CEEB;
 }
 
 </style>
