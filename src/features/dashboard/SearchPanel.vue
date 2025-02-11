@@ -17,7 +17,7 @@
       <option v-for="city in findedCities.slice(0, 10)" :key="city.id" :value="city.id">
         {{ city.name }}
       </option>
-      <option disabled v-if="findedCities.length > 10">({{ findedCities.length }} more rekords...)</option>
+      <option disabled v-if="findedCities.length > 10">({{ findedCities.length }} more records...)</option>
     </select>
 
     <Transition name="btn-add">
