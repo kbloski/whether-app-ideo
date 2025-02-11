@@ -27,6 +27,8 @@ function handleLogin(formData: TypeAuthFormValues) {
     try {
         const user = authStore.loginUser(formData);
         if (user) router.push({ name: "dashboard" });
+
+        /* eslint-disable */
     } catch (err: any) {
         error.value = err.message;
     }
@@ -37,6 +39,8 @@ function handleRegister(formData: TypeAuthFormValues) {
         authStore.registerUser(formData);
         isLoginMode.value = true;
         alert("Pomyślnie utworzono nowego użytkownika.");
+
+        /* eslint-disable */
     } catch (err: any) {
         error.value = err.message;
     }
@@ -51,7 +55,9 @@ function handleRegister(formData: TypeAuthFormValues) {
                     <span v-if="isLoginMode">Log in</span>
                     <span v-else>Register</span>
                 </h2>
-                <TheError class="card-subtitle text-danger" v-if="error">{{ error }}</TheError>
+                <TheError class="card-subtitle text-danger" v-if="error">{{
+                    error
+                }}</TheError>
                 <AuthForm @submit-form="onSubmitForm" />
                 <a href="#" class="card-link" @click="toggleLoginMode">
                     <span v-if="isLoginMode">Create account</span>

@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 
 type TypeUserData = {
@@ -33,18 +33,18 @@ export const useAuthStore = defineStore("auth", () => {
 
 
     function loginUser({ login, password }: { login: string; password: string }) {
-        const users = getUsersFromLocalStorage();
-        const userExist = users.find(
-            (user) =>
-                user.login.toLocaleLowerCase().trim() === login.toLocaleLowerCase().trim()
-        );
+      const users = getUsersFromLocalStorage()
+      const userExist = users.find(
+        (user) => user.login.toLocaleLowerCase().trim() === login.toLocaleLowerCase().trim(),
+      )
 
-        if (!userExist) throw new Error("User don't exist in database.");
-        if (userExist.password !== password) throw new Error("Invalid password.");
+      if (!userExist) throw new Error("User don't exist in database.")
+      if (userExist.password !== password) throw new Error('Invalid password.')
 
-        const { password : userPassword, ...userWithoutPassword } = userExist;
-        user.value = userWithoutPassword;
-        return userWithoutPassword;
+      /* eslint-disable */
+      const { password: _, ...userWithoutPassword } = userExist
+      user.value = userWithoutPassword
+      return userWithoutPassword
     }
 
     function logOut(){

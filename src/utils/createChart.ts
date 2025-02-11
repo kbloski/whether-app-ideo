@@ -18,14 +18,14 @@ export function createChart(
     chartData: TypeChartData
 ) {
   const ctx = elementHtml
-  new Chart(ctx as any, {
-    type: 'line', 
+  new Chart(ctx as HTMLCanvasElement, {
+    type: 'line',
     data: chartData,
     options: {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: true, 
+          beginAtZero: true,
         },
       },
     },
