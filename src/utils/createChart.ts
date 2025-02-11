@@ -1,28 +1,26 @@
 import Chart from 'chart.js/auto'
 
 type TypeDataSets = {
-    label: string, 
-    data: number[], 
-    fill: boolean, 
-    borderColor: string, 
-    tension: 0.1, 
+  label: string
+  data: number[]
+  fill: boolean
+  borderColor: string
+  tension: number
 }
 
 type TypeChartData = {
-        labels: string[], 
-        datasets: TypeDataSets[],
+  labels: string[]
+  datasets: TypeDataSets[]
 }
 
-export function createChart(
-    elementHtml: HTMLElement, 
-    chartData: TypeChartData
-) {
-  const ctx = elementHtml
-  new Chart(ctx as HTMLCanvasElement, {
+export function createChart(elementHtml: HTMLCanvasElement, chartData: TypeChartData): Chart {
+
+  return new Chart(elementHtml, {
     type: 'line',
     data: chartData,
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,
@@ -30,4 +28,8 @@ export function createChart(
       },
     },
   })
+}
+
+export function destroyChart(chartInstance: Chart) {
+  chartInstance.destroy()
 }

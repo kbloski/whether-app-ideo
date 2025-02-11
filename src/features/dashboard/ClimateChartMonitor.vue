@@ -4,60 +4,68 @@
     <div v-else>
         <div class="text-light">City: {{ data?.city.name }}</div>
         <div class="bg-light mt-2">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas ref="chartCanvas" width="400" height="400"></canvas>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import {  watch } from "vue";
+import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue";
 import { useHourlyWeatherApiByCityId } from "@/services/useWeatherApi";
-import { createChart } from "@/utils/createChart";
+import { createChart, destroyChart } from "@/utils/createChart";
+import type { Chart } from "chart.js";
 
 const props = defineProps<{ cityId: number }>();
 const { data, isLoading, isError } = useHourlyWeatherApiByCityId(props.cityId);
 
-watch(data, () => {
-    if (!data) return;
 
-    const labels : string[]= [];
-    const temperatures  : number[]= [];
-    const humadity : number[]= [];
+const chartCanvas = ref<HTMLCanvasElement | null>(null);
+let chartInstance: Chart | null = null;
 
-    data.value?.list.forEach((el, index) => {
+watch([data], () => {
+    if (!data.value || !chartCanvas.value) {
+        return;
+    };
+
+    const labels: string[] = [];
+    const temperatures: number[] = [];
+    const humidity: number[] = [];
+
+    data.value.list.forEach((el, index) => {
         if (index > 8) return;
-
         labels.push(el.dt_txt);
         temperatures.push(el.main.temp);
-        humadity.push(el.main.humidity);
+        humidity.push(el.main.humidity);
     });
-    const canvaElement = document.getElementById('myChart');
-    
-    if (!canvaElement) return;
-    createChart(canvaElement, 
-        {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Temperatures (*C)',
-                    data: temperatures,
-                    fill: false,
-                    borderColor: '#2ca02c',
-                    tension: 0.1
-                },
-                {
-                    label: 'Humadity (%)',
-                    data: humadity,
-                    fill: false,
-                    borderColor: '#1f77b4',
-                    tension: 0.1
-                },
-            ]
-        },
 
-    )
 
-});
+    if (chartInstance) {
+        destroyChart(chartInstance);
+    }
+
+    chartInstance = createChart(chartCanvas.value, {
+        labels,
+        datasets: [
+            {
+                label: "Temperatures (°C)",
+                data: temperatures,
+                fill: false,
+                borderColor: "#2ca02c",
+                tension: 0.1,
+            },
+            {
+                label: "Humidity (%)",
+                data: humidity,
+                fill: false,
+                borderColor: "#1f77b4",
+                tension: 0.1,
+            },
+        ],
+    });
+}   
+, { immediate: true, flush: 'post'});
+
+
 </script>
 
 <style scoped>

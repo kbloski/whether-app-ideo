@@ -25,6 +25,7 @@ export function useWeatherApiByCityId(cityId: number) {
     {
       staleTime: 1000 * 60,
       retry: 1, 
+      cacheTime: 0,
     },
   )
 }
@@ -51,6 +52,7 @@ export function useHourlyWeatherApiByCityId(cityId: number) {
     {
       staleTime: 1000 * 60,
       retry: 1,
+      cacheTime: 0,
     },
   )
 }
