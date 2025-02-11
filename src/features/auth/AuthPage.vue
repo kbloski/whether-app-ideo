@@ -48,14 +48,14 @@ function handleRegister(formData: TypeAuthFormValues) {
         <div class="card p-3 bg-light">
             <div class="card-body">
                 <h2 class="card-title mb-2">
-                    <span v-if="isLoginMode">Logowanie</span>
-                    <span v-else>Rejestracja</span>
+                    <span v-if="isLoginMode">Log in</span>
+                    <span v-else>Register</span>
                 </h2>
                 <TheError class="card-subtitle text-danger" v-if="error">{{ error }}</TheError>
                 <AuthForm @submit-form="onSubmitForm" />
                 <a href="#" class="card-link" @click="toggleLoginMode">
-                    <span v-if="isLoginMode">Utwórz konto</span>
-                    <span v-if="!isLoginMode">Zaloguj się</span>
+                    <span v-if="isLoginMode">Create account</span>
+                    <span v-if="!isLoginMode">Log in</span>
                 </a>
             </div>
         </div>
