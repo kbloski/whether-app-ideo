@@ -6,7 +6,11 @@ useQueryProvider()
 </script>
 
 <template>
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <Transition name="change-page">
+      <Component :is="Component"/>
+    </Transition>
+  </RouterView>
 </template>
 
 <style lang="scss">
@@ -19,4 +23,25 @@ body {
   background-color: #87CEEB;
 }
 
+
+.change-page {
+  &-enter{
+    &-from {
+      opacity: 0;
+    }
+    &-actve {
+      transition: all .3s ease;
+    }
+  }
+
+  &-leave{
+    &-active {
+      transition: all .3s ease;
+    }
+    &-to {
+      opacity: 0;
+    }
+  }
+
+}
 </style>

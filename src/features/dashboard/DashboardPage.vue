@@ -5,8 +5,9 @@
         </div>
         <div class="col-lg-8 mb-4">
             <LeftPanel>
-                <div v-if="!cities?.length">Loading...</div>
-                <SearchPlace :cities="cities" v-else/>
+                <div v-if="isLoading">Loading...</div>
+                <TheError v-else-if="isError">Oh no, error, please contact support...</TheError>
+                <SearchPanel :cities="cities" v-else-if="cities"/>
                 <SavedCitiesList class="mt-5 "/>
             </LeftPanel>
         </div>
@@ -24,13 +25,14 @@
 
 <script lang="ts" setup>
 import SavedCitiesList from './SavedCitiesList.vue'
-import SearchPlace from './SearchPlace.vue';
+import SearchPanel from './SearchPanel.vue';
 import LeftPanel from './LeftPanel.vue';
 import RightPanel from './RightPanel.vue';
 import TheDashboardHeader from './TheDashboardHeader.vue';
 import ClimateChartMonitor from './ClimateChartMonitor.vue';
 import useCitiesApi from '@/services/useCitiesApi';
 import { ref, provide } from 'vue';
+import TheError from '../ui/TheError.vue';
 
 
 provide( 'setSelectedCityId', ( cityId : number ) => { 

@@ -26,15 +26,14 @@
   </form>
 
   <!-- Error message -->
-  <div v-if="isError" class="text-danger">
-    {{ isError }}
-  </div>
+  <TheError v-if="isError">{{ isError }} </TheError>
 </template>
 
 <script lang="ts" setup>
 import type { TypeCity } from "@/services/useCitiesApi";
 import { useSavedCitiesStore } from "@/stores/savedCities";
 import { ref, defineProps } from "vue";
+import TheError from "../ui/TheError.vue";
 
 
 const citiesStore = useSavedCitiesStore();

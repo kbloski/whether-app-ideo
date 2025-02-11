@@ -1,6 +1,6 @@
 <template>
     <div v-if="isLoading">Loading...</div>
-    <Error v-else-if="isError">Oh no, error, please contact support...</Error>
+    <div v-else-if="isError">Oh no, error, please contact support...</div>
     <li class="row mb-1 py-1 px-1" v-else>
         <span class="col-2 col-md-4 d-flex align-items-center">{{ city.name }}</span>
         <span class="col-2 col-md-3 d-flex align-items-center"

@@ -1,9 +1,9 @@
 <template>
     <div v-if="isLoading">Loading...</div>
-    <Error v-if="isError">Oh no, error, please contact support...</Error>
+    <TheError v-if="isError">Oh no, error, please contact support...</TheError>
     <div v-else>
-        <div class="text-light">{{ data?.city.name }}</div>
-        <div class="bg-light">
+        <div class="text-light">City: {{ data?.city.name }}</div>
+        <div class="bg-light mt-2">
             <canvas id="myChart" width="400" height="400"></canvas>
         </div>
     </div>

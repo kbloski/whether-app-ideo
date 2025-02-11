@@ -51,7 +51,7 @@ function handleRegister(formData: TypeAuthFormValues) {
                     <span v-if="isLoginMode">Logowanie</span>
                     <span v-else>Rejestracja</span>
                 </h2>
-                <Error class="card-subtitle text-danger" v-if="error">{{ error }}</Error>
+                <TheError class="card-subtitle text-danger" v-if="error">{{ error }}</TheError>
                 <AuthForm @submit-form="onSubmitForm" />
                 <a href="#" class="card-link" @click="toggleLoginMode">
                     <span v-if="isLoginMode">Utwórz konto</span>
