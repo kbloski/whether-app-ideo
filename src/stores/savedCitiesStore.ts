@@ -6,16 +6,16 @@ import type { TypeCityConfiguration, TypeSaveCity } from '@/types/savedCitiesTyp
 type TypeFullSaveCityObject = TypeCityConfiguration[]
 
 function getFullSavedCityObject(): TypeFullSaveCityObject {
-  const savedJsonString = localStorage.getItem('saved-cities')
+  const savedJsonString = localStorage.getItem('saved-local-cities')
   if (!savedJsonString) return [] as TypeCityConfiguration[]
   return JSON.parse(savedJsonString)
 }
 
 function saveFullCityObjectToLocalStorage(data: TypeFullSaveCityObject) {
-  localStorage.setItem('saved-cities', JSON.stringify(data))
+  localStorage.setItem('saved-local-cities', JSON.stringify(data))
 }
 
-export const useSavedCitiesStore = defineStore('saved-cities', () => {
+export const useSavedCitiesStore = defineStore('saved-local-cities', () => {
   let isInitSaveHistoryDataRuning = false
   const refreshSavingHistoryData = 1000 * 60
 
