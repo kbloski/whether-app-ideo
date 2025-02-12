@@ -19,7 +19,9 @@ const { getSavedCityById } = useSavedCitiesStore()
 
 const savedCityData =  getSavedCityById(props.cityId)
 const cityData = computed(() => savedCityData.value?.city) 
-const historyData = computed(() => savedCityData.value?.historyData )
+const historyData = computed(() => ({
+    ...savedCityData.value?.historyData
+}))
 
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
 let chartInstance: Chart | null = null;
