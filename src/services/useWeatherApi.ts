@@ -1,5 +1,5 @@
 import { useQuery } from 'vue-query'
-import type { WeatherConfigType, WeatherHourlyConfig} from '@/types/wheaterApi'
+import type { WeatherConfigType, WeatherHourlyConfig} from '@/types/wheaterApiTypes'
 
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY
 

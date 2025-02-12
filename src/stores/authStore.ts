@@ -16,7 +16,6 @@ function getUsersFromLocalStorage(): TypeUserData[] {
 export const useAuthStore = defineStore("auth", () => {
     const user = ref<Omit<TypeUserData, 'password'> | null>(null)
 
-
     function registerUser({ login, password }: { login: string, password: string}) {
         const users = getUsersFromLocalStorage();
 

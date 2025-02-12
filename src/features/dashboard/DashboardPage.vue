@@ -12,12 +12,12 @@
             </LeftPanel>
         </div>
         <div class="col-lg-4">
-            <RightPanel v-if="selectedCityId">
+            <RightPanel v-if="dashboardStore.selectedCityId">
                 <ClimateChartMonitor    
-                    :city-id="selectedCityId"                   
-                    :key="selectedCityId"  
+                    :city-id="dashboardStore.selectedCityId"                   
+                    :key="dashboardStore.selectedCityId"  
                 />
-                <button class="btn btn-danger mt-2" @click="() => selectedCityId = null">Close</button>
+                <button class="btn btn-danger mt-2" @click="dashboardStore.clearSelectedCityId">Close</button>
             </RightPanel>
         </div>
     </div>
@@ -31,19 +31,17 @@ import RightPanel from './RightPanel.vue';
 import TheDashboardHeader from './TheDashboardHeader.vue';
 import ClimateChartMonitor from './ClimateChartMonitor.vue';
 import useCitiesApi from '@/services/useCitiesApi';
-import { ref, provide } from 'vue';
 import TheError from '../ui/TheError.vue';
+import { useSavedCitiesStore } from '@/stores/savedCitiesStore';
+import { useDashboardStore } from '@/stores/dashboardStore';
 
+// Init saved cities store
+const savedCitiesStore = useSavedCitiesStore()
+savedCitiesStore.initSaveHistoryData()
 
-provide( 'setSelectedCityId', ( cityId : number ) => { 
-    selectedCityId.value = cityId
-})
-const selectedCityId = ref<number | null>(null);
+const dashboardStore = useDashboardStore()
 
 const { data:cities, isLoading, isError} = useCitiesApi()
-
-
-
 </script>
 
 

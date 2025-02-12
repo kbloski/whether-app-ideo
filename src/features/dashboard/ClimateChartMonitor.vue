@@ -1,8 +1,6 @@
 <template>
-    <div v-if="isLoading">Loading...</div>
-    <TheError v-if="isError">Oh no, error, please contact support...</TheError>
-    <div v-else>
-        <div class="text-light">City: {{ data?.city.name }}</div>
+    <div>
+        <div class="text-light">Your city: {{ cityData?.name }}</div>
         <div class="bg-light mt-2">
             <canvas ref="chartCanvas" width="400" height="400"></canvas>
         </div>
@@ -10,60 +8,59 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted, onBeforeUnmount, computed } from "vue";
-import { useHourlyWeatherApiByCityId } from "@/services/useWeatherApi";
+import {   computed, onMounted, ref, watch } from "vue";
 import { createChart, destroyChart } from "@/utils/createChart";
 import type { Chart } from "chart.js";
+import { useSavedCitiesStore } from "@/stores/savedCitiesStore";
 
 const props = defineProps<{ cityId: number }>();
-const { data, isLoading, isError } = useHourlyWeatherApiByCityId(props.cityId);
 
+const { getSavedCityById } = useSavedCitiesStore()
+
+const savedCityData =  getSavedCityById(props.cityId)
+const cityData = computed(() => savedCityData.value?.city) 
+const historyData = computed(() => savedCityData.value?.historyData )
 
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
 let chartInstance: Chart | null = null;
 
-watch([data], () => {
-    if (!data.value || !chartCanvas.value) {
-        return;
-    };
 
-    const labels: string[] = [];
-    const temperatures: number[] = [];
-    const humidity: number[] = [];
-
-    data.value.list.forEach((el, index) => {
-        if (index > 8) return;
-        labels.push(el.dt_txt);
-        temperatures.push(el.main.temp);
-        humidity.push(el.main.humidity);
-    });
-
+function drawChart(){
+    if (!historyData.value || !chartCanvas.value) return;
 
     if (chartInstance) {
         destroyChart(chartInstance);
     }
 
     chartInstance = createChart(chartCanvas.value, {
-        labels,
+        labels: historyData.value.timestamps as string[] ?? [],
         datasets: [
             {
                 label: "Temperatures (°C)",
-                data: temperatures,
+                data: historyData.value.temperatures as number[] ?? [],
                 fill: false,
                 borderColor: "#2ca02c",
                 tension: 0.1,
             },
             {
                 label: "Humidity (%)",
-                data: humidity,
+                data: historyData.value.humidities as number[] ?? [],
                 fill: false,
                 borderColor: "#1f77b4",
                 tension: 0.1,
             },
         ],
     });
+}
+
+onMounted(() => {
+    drawChart()
+})
+
+watch([ historyData], () => {
+    drawChart()
 }   
-, { immediate: true, flush: 'post'});
+, { immediate: true});
 
 
 </script>

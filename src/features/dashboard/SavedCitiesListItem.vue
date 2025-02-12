@@ -17,12 +17,12 @@
 <script lang="ts" setup>
 import type { TypeCity } from "@/services/useCitiesApi";
 import { useWeatherApiByCityId } from "@/services/useWeatherApi";
-import { useSavedCitiesStore } from "@/stores/savedCities";
-import { inject } from "vue";
+import { useDashboardStore } from "@/stores/dashboardStore";
+import { useSavedCitiesStore } from "@/stores/savedCitiesStore";
 
+const dashboardStore = useDashboardStore()
 
 const savedCitiesStore = useSavedCitiesStore()
-const setSelectedCityId = inject<(cityId: number) => void>('setSelectedCityId', () => {})
 
 const props = defineProps<{
     city: TypeCity;
@@ -35,7 +35,7 @@ function handleDelete( cityId : number){
 }
 
 function handleSelectCity( cityId : number){
-    setSelectedCityId( cityId ) 
+    dashboardStore.setSelectedCityId( cityId ) 
 }
 
 </script>

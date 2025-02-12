@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import AuthForm from "./AuthForm.vue";
 import type { TypeAuthFormValues } from "./AuthForm.vue";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
@@ -59,10 +59,12 @@ function handleRegister(formData: TypeAuthFormValues) {
                     error
                 }}</TheError>
                 <AuthForm @submit-form="onSubmitForm" />
-                <a href="#" class="card-link" @click="toggleLoginMode">
-                    <span v-if="isLoginMode">Create account</span>
-                    <span v-if="!isLoginMode">Log in</span>
-                </a>
+                <div class="mt-3 d-flex justify-content-end">
+                    <a href="#" class="card-link" @click="toggleLoginMode">
+                        <span v-if="isLoginMode">Create account</span>
+                        <span v-if="!isLoginMode">Log in</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

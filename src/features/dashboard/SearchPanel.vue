@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import type { TypeCity } from "@/services/useCitiesApi";
-import { useSavedCitiesStore } from "@/stores/savedCities";
+import { useSavedCitiesStore } from "@/stores/savedCitiesStore";
 import { ref, defineProps } from "vue";
 import TheError from "../ui/TheError.vue";
 
@@ -62,7 +62,12 @@ function handleSubmit() {
     const city = findedCities.value.find(city => city.id === selectedCityId.value);
     if (!city) return;
 
-    citiesStore.saveCityToLocalStorage(city);
+    citiesStore.saveCity({city, historyData: {
+      timestamps: [],
+      temperatures: [],
+      humidities: []
+    }});
+
     isError.value = ""; 
   } catch (err: unknown) {
     isError.value = err instanceof Error ? err.message : "Unexpected error";
