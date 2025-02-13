@@ -39,12 +39,18 @@ export const useSavedCitiesStore = defineStore('saved-local-cities', () => {
 
   // Save city to localstorage for logged user
   function saveCity({ city, historyData: { timestamps, temperatures, humidities } }: TypeSaveCity) {
-    const userCities = getSavedCitiesByUserId(loggedInUserId.value)
+    const userCities = userSavedCities.value
     if (userCities.length >= 10) {
       throw new Error('Your city list is full. Please remove one of them.')
     }
 
-    if (userCities.find(data => data.city.id === city.id)) throw new Error(`The city "${city.name}" is already saved. Please choose a different one.`)
+    if (userCities.find((data) => data.city.id === city.id))
+      throw new Error(`The city "${city.name}" is already saved. Please choose a different one.`)
+
+    const newUserCities = [
+      ...userCities.filter((data) => data.city.id !== city.id),
+      { city, historyData: { timestamps, temperatures, humidities } },
+    ]
 
     // Create new fully object to save
     const fullCityObject = getFullSavedCityObject().filter(
@@ -52,23 +58,28 @@ export const useSavedCitiesStore = defineStore('saved-local-cities', () => {
     )
     fullCityObject.push({
       userId: loggedInUserId.value,
-      cities: [
-        ...userCities.filter((data) => data.city.id !== city.id),
-        { city, historyData: { timestamps, temperatures, humidities } },
-      ],
+      cities: newUserCities
     })
 
     // Save object ang synch userSaveCities
     saveFullCityObjectToLocalStorage(fullCityObject)
-    userSavedCities.value = getSavedCitiesByUserId(loggedInUserId.value)
+    userSavedCities.value = newUserCities
   }
 
+  
   function getSavedCityById(cityId: number) {
-    const findedCity = computed(() => userSavedCities.value.find((data) => data.city.id === cityId))
+    
+    const findedCity = computed(() => {
+      const findElements = userSavedCities.value.filter((data) => data.city.id === cityId)
+      return findElements[0]
+    })
+
 
     if (!findedCity.value) throw new Error(`Saved cities not include city with id ${cityId}`)
-    return findedCity
+    return findedCity.value
   }
+
+
 
   function removeSavedCityById(cityId: number) {
     const newFullSavedCityObject = getFullSavedCityObject().map((data) => {
@@ -92,24 +103,29 @@ export const useSavedCitiesStore = defineStore('saved-local-cities', () => {
     },
   ) {
     const fullCityObject = getFullSavedCityObject()
+    const userCities = userSavedCities.value
+    const currentCityData = userCities.find((data) => data.city.id === cityId)
+
+    if (!currentCityData) throw new Error('Not found city in saved cities list')
+
+    currentCityData.historyData.timestamps.push(historyData.timestamp)
+    currentCityData.historyData.temperatures.push(historyData.temperature)
+    currentCityData.historyData.humidities.push(historyData.humidity)
+
+    const updatetUserCities = [
+      ...userCities.filter( data => data.city.id !== cityId),
+      currentCityData
+    ]
+
     const updatedFullCityObject = fullCityObject.map((data) => {
       if (data.userId !== loggedInUserId.value) return data
-
-      // user data
-      data.cities = data.cities.map((cities) => {
-        if (cities.city.id !== cityId) return cities
-
-        // current city
-        cities.historyData.timestamps.push(historyData.timestamp)
-        cities.historyData.temperatures.push(historyData.temperature)
-        cities.historyData.humidities.push(historyData.humidity)
-        return cities
-      })
+      data.cities = updatetUserCities
       return data
     })
-
+    
     saveFullCityObjectToLocalStorage(updatedFullCityObject)
-    userSavedCities.value = getSavedCitiesByUserId(loggedInUserId.value)
+    
+    userSavedCities.value = updatetUserCities
   }
 
   function initSaveHistoryData() {

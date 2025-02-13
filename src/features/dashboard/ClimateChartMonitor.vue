@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-light">Your city: {{ cityData?.name }}</div>
+        <div class="text-light">Your city: {{ savedCityData.city.name }}</div>
         <div class="bg-light mt-2">
             <canvas ref="chartCanvas" width="400" height="400"></canvas>
         </div>
@@ -18,35 +18,31 @@ const props = defineProps<{ cityId: number }>();
 const { getSavedCityById } = useSavedCitiesStore()
 
 const savedCityData =  getSavedCityById(props.cityId)
-const cityData = computed(() => savedCityData.value?.city) 
-const historyData = computed(() => ({
-    ...savedCityData.value?.historyData
-}))
+
 
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
 let chartInstance: Chart | null = null;
 
-
 function drawChart(){
-    if (!historyData.value || !chartCanvas.value) return;
+    if (!savedCityData.historyData || !chartCanvas.value) return;
 
     if (chartInstance) {
         destroyChart(chartInstance);
     }
 
     chartInstance = createChart(chartCanvas.value, {
-        labels: historyData.value.timestamps as string[] ?? [],
+        labels: savedCityData.historyData.timestamps?.map(data => String(data)) ?? [],
         datasets: [
             {
                 label: "Temperatures (°C)",
-                data: historyData.value.temperatures as number[] ?? [],
+                data: savedCityData.historyData.temperatures?.map(data => Number(data)) ?? [],
                 fill: false,
                 borderColor: "#2ca02c",
                 tension: 0.1,
             },
             {
                 label: "Humidity (%)",
-                data: historyData.value.humidities as number[] ?? [],
+                data: savedCityData.historyData.humidities?.map(data => Number(data)) ?? [],
                 fill: false,
                 borderColor: "#1f77b4",
                 tension: 0.1,
@@ -59,7 +55,7 @@ onMounted(() => {
     drawChart()
 })
 
-watch([ historyData], () => {
+watch([ savedCityData], () => {
     drawChart()
 }   
 , { immediate: true});
