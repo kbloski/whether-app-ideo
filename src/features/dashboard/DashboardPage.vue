@@ -61,7 +61,7 @@ const { data:cities, isLoading, isError} = useCitiesApi()
         }
 
         &-active {
-            transition: all 1s ease;
+            transition: all .3s ease;
         }
     }
 
@@ -71,7 +71,7 @@ const { data:cities, isLoading, isError} = useCitiesApi()
         }
 
         &-active {
-            transition: all 1s ease;
+            transition: all .3s ease;
         }
     }
 }
@@ -83,7 +83,7 @@ const { data:cities, isLoading, isError} = useCitiesApi()
         }
 
         &-active {
-            transition: all 1s ease;
+            transition: all .3s ease;
         }
     }
 
@@ -93,7 +93,7 @@ const { data:cities, isLoading, isError} = useCitiesApi()
         }
 
         &-active {
-            transition: all 1s ease;
+            transition: all .3s ease;
         }
     }
 }
