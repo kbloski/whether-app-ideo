@@ -134,8 +134,9 @@ export const useSavedCitiesStore = defineStore('saved-local-cities', () => {
 
     let requestIntervals: {
       cityId: number
-      intervalId: any
+      intervalId: number
     }[] = []
+
 
     // Init intervals for all saved cities
     const savedCitiesIds = computed(() => userSavedCities.value.map((data) => data.city.id))
@@ -169,11 +170,9 @@ export const useSavedCitiesStore = defineStore('saved-local-cities', () => {
         })
         .then((data) => {
           const currentTimestamp = new Date().toISOString()
-          let currentTemp: number
-          let currentHumidity: number
 
-          currentTemp = data?.main?.temp as number
-          currentHumidity = data?.main?.humidity as number
+          const currentTemp = data?.main?.temp 
+          const currentHumidity = data?.main?.humidity 
 
           addHistoryToCityById(cityId, {
             timestamp: currentTimestamp,

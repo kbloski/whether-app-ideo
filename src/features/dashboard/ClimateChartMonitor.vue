@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import {   computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { createChart, destroyChart } from "@/utils/createChart";
 import type { Chart } from "chart.js";
 import { useSavedCitiesStore } from "@/stores/savedCitiesStore";
