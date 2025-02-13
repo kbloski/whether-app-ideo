@@ -12,13 +12,17 @@
             </LeftPanel>
         </div>
         <div class="col-lg-4">
-            <RightPanel v-if="dashboardStore.selectedCityId">
-                <ClimateChartMonitor    
-                    :city-id="dashboardStore.selectedCityId"                   
-                    :key="dashboardStore.selectedCityId"  
-                />
-                <button class="btn btn-danger mt-2" @click="dashboardStore.clearSelectedCityId">Close</button>
-            </RightPanel>
+            <Transition name="right-panel-transition" mode="out-in">
+                <RightPanel v-if="dashboardStore.selectedCityId">
+                    <Transition name="climate-monitor-transition" mode="out-in">
+                        <ClimateChartMonitor    
+                            :city-id="dashboardStore.selectedCityId"                   
+                            :key="dashboardStore.selectedCityId"  
+                        />
+                    </Transition>
+                    <button class="btn btn-danger mt-2" @click="dashboardStore.clearSelectedCityId">Close</button>
+                </RightPanel>
+            </Transition>
         </div>
     </div>
 </template>
@@ -48,5 +52,49 @@ const { data:cities, isLoading, isError} = useCitiesApi()
 <style lang="scss" scoped>
 .sidebar {
     background-color: var(--background-dark);
+}
+
+.climate-monitor-transition {
+    &-enter{
+        &-from {
+            opacity: 0;
+        }
+
+        &-active {
+            transition: all 1s ease;
+        }
+    }
+
+    &-leave {
+        &-to {
+            opacity: 0;
+        }
+
+        &-active {
+            transition: all 1s ease;
+        }
+    }
+}
+
+.right-panel-transition {
+    &-enter{
+        &-from {
+            transform: scaleX(0);
+        }
+
+        &-active {
+            transition: all 1s ease;
+        }
+    }
+
+    &-leave {
+        &-to {
+            transform: scaleX(0);
+        }
+
+        &-active {
+            transition: all 1s ease;
+        }
+    }
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <div class="text-light">Your city: {{ savedCityData.city.name }}</div>
-        <div class="bg-light mt-2">
-            <canvas ref="chartCanvas" width="400" height="400"></canvas>
+        <div>
+            <div class="text-light">Your city: {{ savedCityData.city.name }}</div>
+            <div class="bg-light mt-2">
+                <canvas ref="chartCanvas" width="400" height="400"></canvas>
+            </div>
         </div>
-    </div>
 </template>
 
 <script lang="ts" setup>
@@ -63,7 +63,10 @@ watch([ savedCityData], () => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+
+
 canvas {
     width: 100%;
 }
